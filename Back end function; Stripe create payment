@@ -1,0 +1,22 @@
+// backend/stripe-create-payment.ts
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2023-10-16",
+});
+
+export async function handler(req: Request) {
+  const { orderId, amount } = await req.json();
+
+  const customer = await stripe.customers.create({});
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "usd",
+    customer: customer.id,
+    capture_method: "manual", // escrow mode
+    metadata: { orderId },
+  });
+
+  return new Response(JSON.stringify({ clientSecret: paymentIntent.client_secret }));
+}
