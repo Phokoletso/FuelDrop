@@ -1,0 +1,18 @@
+// components/HeroSection.tsx
+import React from "react";
+import "./HeroSection.css";
+
+export default function HeroSection() {
+  return (
+    <section className="hero">
+      <div className="hero-content">
+        <h1>FuelDrop</h1>
+        <p>Fuel delivered securely, anytime, anywhere.</p>
+        <button>Order Fuel</button>
+      </div>
+      <div className="hero-image">
+        <img src="/fuel-truck.png" alt="Fuel Truck" />
+      </div>
+    </section>
+  );
+}
